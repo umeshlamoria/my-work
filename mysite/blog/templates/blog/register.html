@@ -1,0 +1,14 @@
+{% extends 'blog/base.html' %}
+{% block content %}
+	{% if registered %}
+		<h2>Thanks for registration..</h2>
+	{% else %}
+		<h2>Register Here</h2>
+		<form method="POST">
+			{% csrf_token %}
+			{{ form.as_p }}
+			<input type="submit" name="" value="Register">
+		</form>
+	{% endif %}
+	<p> If You already have an account <h3><a href="{% url 'login' %}">Login</a></h3></p>
+{% endblock %}

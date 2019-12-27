@@ -1,0 +1,114 @@
+{% extends 'blog/base.html' %}
+{% block content %}
+	<div class="middle-container">
+		<div class="middle-container-first">
+			<div class="middle-container-first-inner-first">
+				{% if post.published_date %}
+					<div class="date">
+						{{ post.published_date }}
+					</div>
+				{% endif %}
+				<a href="{% url 'post_detail' slug=post.slug %}"> {{post.comments.count}}</a><br>
+				<a href="#">{{ post.author }}</a>
+			</div>
+			<div class="middle-container-first-inner-second">
+				<a href="{% url 'post_edit' slug=post.slug %}"><h2>{{ post.title }}</h2></a>
+				<img src="{% if post.featured %} {{post.featured.url}} {% endif %}" width="100%" height="270px">
+				<p>{{ post.text|linebreaksbr }}</p>
+			</div>
+		</div>
+		<div class="middle-container-second">
+			<div class="middle-container-second-first">
+				<div class="middle-container-second-logo">
+					<img src="/media/logo-st-128.png" width="100%" alt="image">
+				</div>
+				<div class="middle-container-second-name">
+					<h4>Post By:</h4> {{ post.author }}
+				</div>	
+			</div>
+			<div class="middle-container-second-second">
+				<div class="post-tag">
+					<h4>Post Tag:</h4>
+				</div>
+				<div class="post-tags-all">
+					{% for tags in post.tag.all %}
+						<div class="tag_cls">
+							<a href="{% url 'tag' tags.slug %}">{{ tags.title|capfirst }}</a>
+						</div>
+					{% endfor %}
+				</div>
+			</div>
+			<div class="middle-container-second-fourth">
+				<div class="post-categorys">
+					<h4> Categories:</h4>
+				</div>
+				<div class="post-categorys-all">
+					{% for categorys in post.category.all %}
+						<div class="post-categorys-all-inner">
+							<a href="{% url 'category' categorys.slug %}">{{ categorys.title|capfirst }}</a>
+						</div>
+					{% endfor %}
+				</div>
+			</div>
+			<div class="middle-container-second-third">
+				<div class="post-share">
+					<h4>Post Share</h4>
+				</div>
+				<div class="post-share-logo">
+						<a href="#"><img src="/media/facebook.png"></a>
+						<a href="#"><img src="/media/twitter.jpeg"></a>
+						<a href="#"><img src="/media/googleplus.png"></a>
+						<a href="#"><img src="/media/linkedin.png"></a>
+						<a href="#"><img src="/media/tumblr.png"></a>
+						<a href="#"><img src="/media/whatsapp.jpeg"></a>
+				</div>
+			</div>
+		</div>
+		<div class="middle-container-third">
+			<div class="middle-container-third-first">
+				<h2>Write A Comment</h2>
+				<form method="POST" class="post-form comment-form">
+					{% csrf_token %}
+					{{ form.as_p }}
+					{% if user.is_authenticated %}
+						<button type="submit" class="save btn btn-default">Send</button>
+					{% else %}
+						<button type="submit" class="save btn btn-default" disabled>Send</button>
+					{% endif %}
+				</form>
+			</div>
+			<div class="middle-container-third-second">
+				<div class="comment-counts">
+					<h4>{{post.comments.count}} comments</h4>
+				</div>
+				{% for comment in comments %}
+					<div class="middle-container-third-inner-first">
+						<strong>
+							{{ comment.name|capfirst }}
+						</strong>
+						<div class="date">
+							{{ comment.create_date }}
+						</div>
+						{{ comment.text|linebreaks }}
+						<button type="submit" class="middle-reply-button" onclick="openReply()">Reply</button>
+					</div>
+					<div class="replied-comments">
+						{% for reply in comment.replies.all %}
+							<div class="blockquote">
+								<p class="mb-0">{{ reply.text }}</p>
+								{{ reply.create_date }}<br>
+								{{ reply.name|capfirst }}
+							</div>
+						{% endfor %}
+							<form method="POST" class="post-form-new" id="commentReply">
+								{% csrf_token %}
+								<input type="hidden" name="comment_id" value="{{comment.id}}">
+								{{ form.as_p }}
+								<button type="submit" class="save btn btn-default" onclick="closeReply()">Send</button>
+							</form>
+					</div>
+				{% endfor %}
+			</div>
+		</div>
+	</div>
+{% endblock %}

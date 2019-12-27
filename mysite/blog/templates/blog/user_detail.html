@@ -1,0 +1,11 @@
+{% extends 'blog/base.html' %}
+{% block content %}
+	<div class="post">
+		<h2>{{ user.username }}</h2></a>
+		<h3>First Name:- {{user.first_name}}</h3>
+		<h3>Last Name:- {{user.last_name}}</h3>
+		<h3>E-mail Address:- {{user.email}}</h3>
+		<img src="{{ user.profile_pic.url }}">
+		<a href="{% url 'user_edit' pk=user.pk %}" style="border: 1px solid red; color: black; font-size: 30px;padding: 10px;margin: 52px;font-family: none;border-radius: 20px;">Edit</a>
+	</div>
+{% endblock %}

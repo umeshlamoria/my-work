@@ -1,0 +1,28 @@
+{% extends 'blog/base.html' %}
+{% block content %}
+	<h1>{{ category.title }} Latest Article</h1>
+	{% for posts in post %}
+		<div class="tag-container">
+			<div class="row-blog">
+				<div class="imag">
+					<img src="{% if posts.thumbnail %}{{posts.thumbnail.url}}{% endif %}">
+				</div>
+				<div class="blog-content">
+					<div class="date">
+						{{ posts.published_date }}
+					</div>
+					<h4>
+						<a href="{% url 'post_detail' posts.slug %}">
+							{{ posts.title }}
+						</a>
+					</h4>
+					<p>{{ posts.text|linebreaksbr }}</p>
+				</div>
+				<div class="comment-section">
+					{{posts.comments.count}}</a>
+					{{ posts.author }}
+				</div>
+			</div>
+		</div>
+	{% endfor %}
+{% endblock %}

@@ -1,0 +1,26 @@
+{% load static %}
+<html>
+	<head>
+		<title>Django Girls blog</title>
+		<link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
+		<link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap-theme.min.css">
+		<link rel="stylesheet" type="text/css" href="{% static 'css/blog.css' %}">
+		<link href="//fonts.googleapis.com/css?family=Lobster&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+	</head>
+	<body>
+		<div class="page-header">
+				<a href="{% url 'login' %}" class="top-menu">Login</a>
+				<a href="{% url 'register' %}" class="top-menu">Sign Up</a>
+				<a href="{% url 'post_list' %}" class="top-menu">Blog</a>
+				<h1>
+					Django Girls Blog
+				</h1>
+		</div>
+		<div class="content container">
+			<div class="row">
+				<div class="col-md-8">
+				</div>
+			</div>
+		</div>
+	</body>
+</html>

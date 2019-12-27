@@ -1,0 +1,9 @@
+{% extends 'blog/base.html' %}
+{% block content %}
+	<form method="POST">
+		{% csrf_token %}
+		<input type="hidden" name="comment_id" value="{{slug}}">
+		{{ form.as_p }}
+		<input type="submit" name="Reply">
+	</form>
+{% endblock %}

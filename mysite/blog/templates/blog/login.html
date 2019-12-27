@@ -1,0 +1,10 @@
+{% extends 'blog/base.html' %}
+{% block content %}
+	<h2>Login Form</h2>
+	<form method="POST">
+		{% csrf_token %}
+		{{form.as_p}}
+		<button type="submit">Login</button>
+	</form>
+	<p>if You don't already have an account.<a href="{% url 'register'%}">Register</a>for one</p>
+{% endblock %}

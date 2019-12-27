@@ -1,0 +1,52 @@
+{% load static %}
+<html>
+	<head>
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<title>Django Girls blog</title>
+		<link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
+		<link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap-theme.min.css">
+		<link rel="stylesheet" type="text/css" href="{% static 'css/blog.css' %}">
+		<script type="text/javascript">
+			function openReply()
+			{
+				document.getElementById('commentReply').style.display= 'block';
+			}
+			function closeReply()
+			{
+				document.getElementById('commentReply').style.display='none';
+			}
+		</script>
+	</head>
+	<body>
+		<div class="page-header">
+			{% if user.is_authenticated %}
+				<a href="{% url 'post_new' %}" class="top-menu"><span class="glyphicon glyphicon-plus"></span></a>
+				<a href="{% url 'logout' %}?next=/" class="top-menu">Logout</a>
+				<h1>
+					<a href="{% url 'post_list' %}">Django Girls Blog</a>
+				</h1>
+				<a href="{% url 'user_list' %}"><h2 style="color:white; font-family:none">profile</h2></a>
+			{% else %}
+				<a href="{% url 'login' %}" class="top-menu">Login</a>
+				<a href="{% url 'register' %}" class="top-menu">Register</a>
+				<a href="{% url 'post_list' %}" class="top-menu"> Blog</a>
+				<h1>
+					Django Girls Blog
+				</h1>
+			{% endif %}
+		</div>
+		<div class="content container">
+			<div class="row">
+				<div class="col-md-8">
+					{% block content %}
+					{% endblock %}
+				</div>
+			</div>
+		</div>
+		<div class="page-footer">
+			<h1>
+				Django Girls Blog
+			</h1>
+		</div>
+	</body>
+</html>
